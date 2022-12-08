@@ -3,22 +3,22 @@ import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
-// create an axios instance
+//创建一个axios实例
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  // withCredentials: true, // 当跨域请求时发送cookies
+  timeout: 5000 // 请求超时
 })
 
-// request interceptor
+// 请求拦截器
 service.interceptors.request.use(
   config => {
-    // do something before request is sent
+    // 在发送请求之前做些什么
     debugger
     if (store.getters.token) {
-      // let each request carry token
-      // ['X-Token'] is a custom headers key
-      // please modify it according to the actual situation
+      // 让每个请求携带标记
+      // ['X-Token'] 是自定义头键
+      // 请根据实际情况修改
       config.headers['token'] = getToken()
     }
     return config
@@ -33,23 +33,24 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(
   /**
-   * If you want to get http information such as headers or status
+   * 如果您想获取http信息，如头或状态
    * Please return  response => response
   */
 
   /**
-   * Determine the request status by custom code
+   * 通过自定义代码确定请求状态
    * Here is just an example
-   * You can also judge the status by HTTP Status Code
+   * 您也可以通过HTTP状态码来判断状态
    */
   response => {
     const res = response.data
     debugger
-    // if the custom code is not 20000, it is judged as an error.
+    // 如果自定义代码不是20000，则判定为错误。.
     if (res.code !== 200) {
       Message({
         message: res.message || 'Error',
         type: 'error',
+        //持续时间
         duration: 5 * 1000
       })
 

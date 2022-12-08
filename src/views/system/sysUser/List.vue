@@ -87,6 +87,7 @@
             type="primary"
             icon="el-icon-edit"
             size="mini"
+            :disabled="$hasBP('bnt.sysUser.update') === false"
             @click="edit(scope.row.id)"
             title="修改"
           />
@@ -94,6 +95,7 @@
             type="danger"
             icon="el-icon-delete"
             size="mini"
+            :disabled="$hasBP('bnt.sysUser.remove') === false"
             @click="removeDataById(scope.row.id)"
             title="删除"
           />
@@ -101,6 +103,7 @@
             type="warning"
             icon="el-icon-baseball"
             size="mini"
+            :disabled="$hasBP('bnt.sysUser.assignRole') === false"
             @click="showAssignRole(scope.row)"
             title="分配角色"
           />
@@ -241,7 +244,12 @@ export default {
       rules: {
         name: [
           { required: true, message: "请输入姓名", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" },
+          {
+            min: 2,
+            max: 10,
+            message: "长度在 2 到 10 个字符",
+            trigger: "blur",
+          },
         ],
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" },

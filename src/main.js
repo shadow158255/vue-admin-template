@@ -18,8 +18,9 @@ import '@/permission' // permission control
 
 //新增
 import hasBtnPermission from '@/utils/btn-permission'
-Vue.prototype.$hasBP = hasBtnPermission
+Vue.prototype.$hasBP = hasBtnPermission//将$hasBP放到vue实例的prototype上，再将判断按钮权限的方法赋值给该属性
 
+console.log("@@@@@",Vue.prototype);
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -44,5 +45,6 @@ new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+
 })

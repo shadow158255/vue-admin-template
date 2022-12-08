@@ -11,11 +11,13 @@ const _import = require('./router/_import_'+process.env.NODE_ENV) // 获取组�
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 const whiteList = ['/login'] // no redirect whitelist
+
+
 router.beforeEach(async(to, from, next) => {
   NProgress.start()
-// set page title
+// 设置页面标题
   document.title = getPageTitle(to.meta.title)
-// determine whether the user has logged in
+// 判断用户是否已登录
   const hasToken = getToken()
   if (hasToken) {
     if (to.path === '/login') {
